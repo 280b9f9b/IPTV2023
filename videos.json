@@ -3,19 +3,27 @@
       {
         "title": "Abu Dhabi Aloula (1080p)",
         "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8"
+          "isLive": false,
+      "mimeType": "video/mp4"
         
       },
       {
         "title": "Abu Dhabi Emirates (1080p)",
         "url": "https://admdn3.cdn.mangomolo.com/emarat/smil:emarat.stream.smil/playlist.m3u8"
+          "isLive": false,
+      "mimeType": "video/mp4"
       },
       {
         "title": "Al Arabiya (1080p)",
         "url": "https://live.alarabiya.net/alarabiapublish/alarabiya.smil/playlist.m3u8"
+          "isLive": false,
+      "mimeType": "video/mp4"
       },
       {
         "title": "Al Arabiya Al Hadath",
         "url": "https://av.alarabiya.net/alarabiapublish/alhadath.smil/playlist.m3u8"
+          "isLive": false,
+      "mimeType": "video/mp4"
       }
     ]
   }
