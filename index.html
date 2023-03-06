@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Video Streaming Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+    h1 {
+      margin: 0;
+    }
+    .videos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .video-wrapper {
+      margin: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 2px 2px 5px #ccc;
+    }
+    .video-title {
+      background-color: #333;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px;
+      text-align: center;
+    }
+    video {
+      width: 300px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>My Video Streaming Page</h1>
+  </header>
+  <div class="videos-container">
+  </div>
+
+  <script>
+    // retrieve data from JSON file
+    fetch('videos.json')
+      .then(response => response.json())
+      .then(data => {
+        const videosContainer = document.querySelector('.videos-container');
+        // display video elements
+        data.videos.forEach(video => {
+          const videoWrapper = document.createElement('div');
+          videoWrapper.className = 'video-wrapper';
+
+          const videoTitle = document.createElement('div');
+          videoTitle.className = 'video-title';
+          videoTitle.textContent = video.title;
+          videoWrapper.appendChild(videoTitle);
+
+          const videoElement = document.createElement('video');
+          videoElement.src = video.url;
+          videoElement.controls = true;
+          videoWrapper.appendChild(videoElement);
+
+          // validate live video streaming link
+          if (video.isLive) {
+            const stream = new MediaSource();
+            videoElement.srcObject = stream;
+            stream.addEventListener('sourceopen', () => {
+              const sourceBuffer = stream.addSourceBuffer(video.mimeType);
+              fetch(video.url)
+                .then(response => response.body.pipeTo(sourceBuffer))
+                .catch(error => console.error(error));
+            });
+          }
+
+          videosContainer.appendChild(videoWrapper);
+        });
+      })
+      .catch(error => console.error(error));
+  </script>
+</body>
+</html>
