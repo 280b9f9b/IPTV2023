@@ -1,21 +1,22 @@
 [
-    {
-      "name": "Live Stream22 33",
-      "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-      "isLive": true,
-      "mimeType": "video/mp4"
-    },
-    {
-      "name": "Video 1",
-      "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-      "isLive": false,
-      "mimeType": "video/mp4"
-    },
-    {
-      "name": "Video 2",
-      "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-      "isLive": false,
-      "mimeType": "video/mp4"
-    }
-  ]
-  
+  {
+    "title": "Video 1",
+    "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8"
+  },
+  {
+    "title": "Video 2",
+    "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8"
+  },
+  {
+    "title": "Video 3",
+    "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8"
+  },
+  {
+    "title": "Video 4",
+    "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8"
+  },
+  {
+    "title": "Video 5",
+    "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8"
+  }
+]
