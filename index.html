@@ -1,107 +1,66 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Video Streaming Page</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #5a5757;
-    }
-    header {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-    }
-    h1 {
-      margin: 0;
-      font-size: 20px;
-    }
-    .videos-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      padding: 10px;
-    }
-    .video-wrapper {
-      margin: 10px;
-      border-radius: 5px;
-      overflow: hidden;
-    }
-    .video-title {
-      background-color: #333;
-      color: #fff;
-      font-size: 16px;
-      font-weight: bold;
-      padding: 5px;
-      text-align: center;
-    }
-    video {
-      width: 400px;
-      height: auto;
-    }
-    @media only screen and (max-width: 600px) {
-      .videos-container {
-        padding: 5px;
+  <head>
+    <meta charset="UTF-8">
+    <title>Video Streaming</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
       }
-      .video-wrapper {
-        margin: 5px;
+      #videos {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
       }
-      .video-title {
-        font-size: 14px;
-        padding: 2px;
+      .video {
+        margin: 20px;
       }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>My Video Streaming Page</h1>
-  </header>
-  <div class="videos-container">
-  </div>
+      .video-name {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="videos"></div>
+    <script>
+      const videosUrl = 'videos.json';
+      const videosContainer = document.getElementById('videos');
 
-  <script>
-    // retrieve data from JSON file
-    fetch('videos.json')
-      .then(response => response.json())
-      .then(data => {
-        const videosContainer = document.querySelector('.videos-container');
-        // display video elements
-        data.videos.forEach(video => {
-          const videoWrapper = document.createElement('div');
-          videoWrapper.className = 'video-wrapper';
+      fetch(videosUrl)
+        .then(response => response.json())
+        .then(videos => {
+          videos.forEach(video => {
+            const videoElement = document.createElement('video');
+            videoElement.controls = true;
+            videoElement.muted = true;
+            videoElement.className = 'video';
 
-          const videoTitle = document.createElement('div');
-          videoTitle.className = 'video-title';
-          videoTitle.textContent = video.title;
-          videoWrapper.appendChild(videoTitle);
+            const videoNameElement = document.createElement('div');
+            videoNameElement.className = 'video-name';
+            videoNameElement.textContent = video.name;
 
-          const videoElement = document.createElement('video');
-          videoElement.src = video.url;
-          videoElement.controls = true;
-          videoWrapper.appendChild(videoElement);
-
-          // validate live video streaming link
-          if (video.isLive) {
-            const stream = new MediaSource();
-            videoElement.srcObject = stream;
-            stream.addEventListener('sourceopen', () => {
-              const sourceBuffer = stream.addSourceBuffer(video.mimeType);
+            if (video.isLive) {
               fetch(video.url)
-                .then(response => response.body.pipeTo(sourceBuffer))
+                .then(response => response.arrayBuffer())
+                .then(buffer => {
+                  const blob = new Blob([buffer], { type: video.mimeType });
+                  videoElement.src = URL.createObjectURL(blob);
+                })
                 .catch(error => console.error(error));
-            });
-          }
+            } else {
+              videoElement.src = video.url;
+            }
 
-          videosContainer.appendChild(videoWrapper);
-        });
-      })
-      .catch(error => console.error(error));
-  </script>
-</body>
+            videosContainer.appendChild(videoElement);
+            videosContainer.appendChild(videoNameElement);
+          });
+        })
+        .catch(error => console.error(error));
+    </script>
+  </body>
 </html>
