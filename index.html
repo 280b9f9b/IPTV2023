@@ -1,23 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="utf-8">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-
+<html>
+  <head>
     <title>My Video Collection</title>
     <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #1a1a1a;
+      }
+
       .video-container {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
+
       }
 
       .video {
         width: 300px;
-        margin: 10px;
+        margin: 20px;
         padding: 5px;
+       
+      }
+
+      .video.valid {
+        border: 5px solid #5cb85c;
+      }
+
+      .video.invalid {
+        border: 5px solid #d9534f;
+      }
+
+      h3 {
+        margin-top: 0;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-align: center;
+        background-color: #6e6e6e;
+        box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 5px;
+        overflow: hidden;
+          }
+
+      iframe {
+        width: 100%;
+        height: 200px;
+        border: none;
       }
     </style>
   </head>
@@ -25,12 +53,14 @@
     <div class="video-container"></div>
 
     <script>
+      // Fetch the video data from a JSON file
       fetch('videoData.json')
         .then(response => response.json())
-        .then(videoData => {
+        .then(videos => {
           const videoContainer = document.querySelector('.video-container');
 
-          videoData.forEach(video => {
+          // Loop through each video and create a video element for it
+          videos.forEach(video => {
             const videoElement = document.createElement('div');
             videoElement.classList.add('video');
 
@@ -38,6 +68,11 @@
             iframeElement.src = video.link;
             iframeElement.title = video.title;
 
+            // Add a title element for the video
+            const titleElement = document.createElement('h3');
+            titleElement.innerText = video.title;
+
+            // Check if the iframe contains a video element
             iframeElement.addEventListener('load', () => {
               if (iframeElement.contentDocument.querySelector('video') !== null) {
                 videoElement.classList.add('valid');
@@ -46,7 +81,11 @@
               }
             });
 
+            // Add the title and iframe elements to the video element
+            videoElement.appendChild(titleElement);
             videoElement.appendChild(iframeElement);
+
+            // Add the video element to the video container
             videoContainer.appendChild(videoElement);
           });
         });
