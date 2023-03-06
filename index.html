@@ -15,64 +15,41 @@
       }
 
       .video {
-    width: 300px;
-    margin: 10px;
-    padding: 5px;
-    
-  }
-
- 
-</style>
-
+        width: 300px;
+        margin: 10px;
+        padding: 5px;
+      }
+    </style>
   </head>
   <body>
     <div class="video-container"></div>
 
     <script>
-      const videoData = [
-        {
-          "title": "Video 1",
-          "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        },
-        {
-          "title": "Video 2",
-          "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        },
-        {
-          "title": "Video 3",
-          "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        },
-        {
-          "title": "Video 4",
-          "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        },
-        {
-          "title": "Video 5",
-          "link": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        }
-      ];
+      fetch('videoData.json')
+        .then(response => response.json())
+        .then(videoData => {
+          const videoContainer = document.querySelector('.video-container');
 
-      const videoContainer = document.querySelector('.video-container');
+          videoData.forEach(video => {
+            const videoElement = document.createElement('div');
+            videoElement.classList.add('video');
 
-      videoData.forEach(video => {
-        const videoElement = document.createElement('div');
-        videoElement.classList.add('video');
+            const iframeElement = document.createElement('iframe');
+            iframeElement.src = video.link;
+            iframeElement.title = video.title;
 
-        const iframeElement = document.createElement('iframe');
-        iframeElement.src = video.link;
-        iframeElement.title = video.title;
+            iframeElement.addEventListener('load', () => {
+              if (iframeElement.contentDocument.querySelector('video') !== null) {
+                videoElement.classList.add('valid');
+              } else {
+                videoElement.classList.add('invalid');
+              }
+            });
 
-        iframeElement.addEventListener('load', () => {
-          if (iframeElement.contentDocument.querySelector('video') !== null) {
-            videoElement.classList.add('valid');
-          } else {
-            videoElement.classList.add('invalid');
-          }
+            videoElement.appendChild(iframeElement);
+            videoContainer.appendChild(videoElement);
+          });
         });
-
-        videoElement.appendChild(iframeElement);
-        videoContainer.appendChild(videoElement);
-      });
     </script>
   </body>
 </html>
