@@ -1,23 +1,21 @@
-{
-    "videos": [
-      {
-        "title": "Abu Dhabi Aloula",
-        "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        "isLive": false,
-        "mimeType": "video/mp4"
-      },
-      {
-        "title": "Abu Dhabi Aloula",
-        "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        "isLive": false,
-        "mimeType": "application/x-mpegURL"
-      },
-      {
-        "title": "Abu Dhabi Aloula",
-        "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        "isLive": false,
-        "mimeType": "video/mp4"
-      }
-    ]
-  }
+[
+    {
+      "name": "Live Stream",
+      "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
+      "isLive": true,
+      "mimeType": "video/mp4"
+    },
+    {
+      "name": "Video 1",
+      "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
+      "isLive": false,
+      "mimeType": "video/mp4"
+    },
+    {
+      "name": "Video 2",
+      "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
+      "isLive": false,
+      "mimeType": "video/mp4"
+    }
+  ]
   
