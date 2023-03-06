@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Video Streaming Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,16 +17,17 @@
     }
     h1 {
       margin: 0;
+      font-size: 20px;
     }
     .videos-container {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      padding: 10px;
     }
     .video-wrapper {
-      margin: 20px;
+      margin: 10px;
       border: 1px solid #ddd;
       border-radius: 5px;
       overflow: hidden;
@@ -36,12 +38,24 @@
       color: #fff;
       font-size: 16px;
       font-weight: bold;
-      padding: 10px;
+      padding: 5px;
       text-align: center;
     }
     video {
-      width: 300px;
+      width: 100%;
       height: auto;
+    }
+    @media only screen and (max-width: 600px) {
+      .videos-container {
+        padding: 5px;
+      }
+      .video-wrapper {
+        margin: 5px;
+      }
+      .video-title {
+        font-size: 14px;
+        padding: 2px;
+      }
     }
   </style>
 </head>
