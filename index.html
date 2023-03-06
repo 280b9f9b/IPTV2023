@@ -16,7 +16,17 @@
         padding: 20px;
       }
       .video {
+        position: relative;
         margin: 20px;
+      }
+      .video-thumbnail {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.5;
       }
       .video-name {
         text-align: center;
@@ -40,6 +50,10 @@
             videoElement.muted = true;
             videoElement.className = 'video';
 
+            const videoThumbnailElement = document.createElement('img');
+            videoThumbnailElement.className = 'video-thumbnail';
+            videoThumbnailElement.src = video.thumbnail;
+
             const videoNameElement = document.createElement('div');
             videoNameElement.className = 'video-name';
             videoNameElement.textContent = video.name;
@@ -54,6 +68,7 @@
               videoElement.src = video.url;
             }
 
+            videoElement.appendChild(videoThumbnailElement);
             videosContainer.appendChild(videoElement);
             videosContainer.appendChild(videoNameElement);
           });
