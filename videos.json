@@ -9,7 +9,7 @@
       {
         "title": "Abu Dhabi Aloula",
         "url": "https://admdn2.cdn.mangomolo.com/adtv/smil:adtv.stream.smil/playlist.m3u8",
-        "isLive": true,
+        "isLive": false,
         "mimeType": "application/x-mpegURL"
       },
       {
