@@ -45,13 +45,11 @@
             videoNameElement.textContent = video.name;
 
             if (video.isLive) {
-              fetch(video.url)
-                .then(response => response.arrayBuffer())
-                .then(buffer => {
-                  const blob = new Blob([buffer], { type: video.mimeType });
-                  videoElement.src = URL.createObjectURL(blob);
-                })
-                .catch(error => console.error(error));
+              const videoSource = document.createElement('source');
+              videoSource.src = video.url;
+              videoSource.type = 'application/x-mpegURL';
+
+              videoElement.appendChild(videoSource);
             } else {
               videoElement.src = video.url;
             }
